@@ -1,65 +1,98 @@
-import Head from 'next/head'
-import styles from '../styles/Home.module.css'
+import { useEffect } from "react";
+import Head from "next/head";
+import { useRouter } from "next/router";
+
+import { Button } from "components/Button";
+import { GitHub } from "components/Icons/Github";
+import { Facebook } from "components/Icons/Facebook";
+import { Google } from "components/Icons/Google";
+import { Jmrona } from "components/Icons/Jmrona";
+
+import styles from "styles/Home.module.css";
+
+import {
+    loginWithFacebook,
+    loginWithGitHub,
+    loginWithGoogle,
+    loginWithMicrosoft,
+} from "firebase/client";
+import useUser, { USER_STATES } from "hooks/useUser";
+import { Microsoft } from "components/Icons/Microsoft";
 
 export default function Home() {
-  return (
-    <div className={styles.container}>
-      <Head>
-        <title>Create Next App</title>
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
+    const user = useUser();
+    const router = useRouter();
 
-      <main className={styles.main}>
-        <h1 className={styles.title}>
-          Welcome to <a href="https://nextjs.org">Next.js!</a>
-        </h1>
+    useEffect(() => {
+        user && router.replace("/home");
+    }, [user]);
 
-        <p className={styles.description}>
-          Get started by editing{' '}
-          <code className={styles.code}>pages/index.js</code>
-        </p>
+    const handleLoginGithub = () => {
+        loginWithGitHub().catch((err) => {
+            console.log(err);
+        });
+    };
 
-        <div className={styles.grid}>
-          <a href="https://nextjs.org/docs" className={styles.card}>
-            <h3>Documentation &rarr;</h3>
-            <p>Find in-depth information about Next.js features and API.</p>
-          </a>
+    const handleLoginFacebook = () => {
+        loginWithFacebook().catch((err) => {
+            console.log(err);
+        });
+    };
 
-          <a href="https://nextjs.org/learn" className={styles.card}>
-            <h3>Learn &rarr;</h3>
-            <p>Learn about Next.js in an interactive course with quizzes!</p>
-          </a>
+    const handleLoginGoogle = () => {
+        loginWithGoogle().catch((err) => {
+            console.log(err);
+        });
+    };
 
-          <a
-            href="https://github.com/vercel/next.js/tree/master/examples"
-            className={styles.card}
-          >
-            <h3>Examples &rarr;</h3>
-            <p>Discover and deploy boilerplate example Next.js projects.</p>
-          </a>
+    const handleLoginMicrosoft = () => {
+        loginWithMicrosoft().catch((err) => {
+            console.log(err);
+        });
+    };
 
-          <a
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className={styles.card}
-          >
-            <h3>Deploy &rarr;</h3>
-            <p>
-              Instantly deploy your Next.js site to a public URL with Vercel.
-            </p>
-          </a>
-        </div>
-      </main>
+    return (
+        <>
+            <Head>
+                <title>Deved</title>
+                <link rel="icon" href="/favicon.ico" />
+            </Head>
+            <div className={styles.container}>
+                <main className={styles.main}>
+                    <Jmrona />
+                    <h2 className={styles.subtitle}>
+                        Talk about development
+                        <br />
+                        with developers
+                    </h2>
+                    <div>
+                        {user === USER_STATES.NOT_LOGGED && (
+                            <div className={styles.btn__group}>
+                                <Button onClick={handleLoginGithub}>
+                                    <GitHub width={24} height={24} />
+                                    Log with GitHub
+                                </Button>
+                                <Button onClick={handleLoginFacebook}>
+                                    <Facebook width={24} height={24} />
+                                    Log with Facebook
+                                </Button>
+                                <Button onClick={handleLoginGoogle}>
+                                    <Google width={24} height={24} />
+                                    Log with Google
+                                </Button>
+                                <Button onClick={handleLoginMicrosoft}>
+                                    <Microsoft width={24} height={24} />
+                                    Log with Microsoft
+                                </Button>
+                            </div>
+                        )}
 
-      <footer className={styles.footer}>
-        <a
-          href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Powered by{' '}
-          <img src="/vercel.svg" alt="Vercel Logo" className={styles.logo} />
-        </a>
-      </footer>
-    </div>
-  )
+                        {user === USER_STATES.NOT_KNOWN && (
+                            <img src="/spinner.gif" />
+                        )}
+                    </div>
+                </main>
+            </div>
+        </>
+    );
 }

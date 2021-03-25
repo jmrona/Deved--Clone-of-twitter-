@@ -1,16 +1,112 @@
 html,
 body {
-  padding: 0;
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+    background-color: #f3f3f3;
+    background-image: radial-gradient(var(--primary) 1px, transparent 1px),
+        radial-gradient(var(--secundary) 1px, transparent 1px);
+    background-position: 0 0, 25px 25px;
+    background-size: 50px 50px;
+    padding: 0;
+    margin: 0;
+    overflow: hidden;
+    color: #272727;
+    font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
+        Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
 }
 
 a {
-  color: inherit;
-  text-decoration: none;
+    color: inherit;
+    text-decoration: none;
 }
 
 * {
-  box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+.main-color {
+    color: var(--primary);
+}
+
+.container {
+    display: grid;
+    height: 100vh;
+    place-items: center;
+}
+
+.main {
+    background: #fff;
+    border-radius: var(--border-radius);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    overflow-y: auto;
+    position: relative;
+    width: 100%;
+}
+
+.nav {
+    backdrop-filter: blur(5px);
+    background: #f3f3f3aa;
+    border-top: 1px solid #eee;
+    bottom: -1px;
+    display: flex;
+    height: 49px;
+    position: sticky;
+    width: 100%;
+}
+
+.nav a {
+    align-items: center;
+    display: flex;
+    flex: 1 1 auto;
+    height: 100%;
+    justify-content: center;
+
+    transition: color 0.2s ease;
+}
+
+.nav a:hover {
+    background: radial-gradient(#0099ff22 15%, transparent 16%);
+    background-size: 180px 180px;
+    background-position: center;
+    color: var(--primary);
+}
+
+.nav a:hover > svg {
+    stroke: var(--primary);
+}
+
+.header {
+    align-items: center;
+    background: #f3f3f3aa;
+    backdrop-filter: blur(5px);
+    border-bottom: 1px solid #eee;
+    display: flex;
+    height: 49px;
+    position: sticky;
+    top: -1px;
+    width: 100%;
+}
+
+.header h2 {
+    padding-left: 15px;
+    font-size: 1.3rem;
+    font-weight: 600;
+}
+
+:root {
+    --primary: #09f;
+    --secundary: #1c5480;
+
+    --border-radius: 5px;
+
+    --mobile: 650px;
+    --desktop: 1400px;
+}
+
+@media screen and (min-width: 650px) {
+    .main {
+        height: 90vh;
+        width: 650px;
+    }
 }

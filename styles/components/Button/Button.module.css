@@ -1,0 +1,26 @@
+.btn {
+    background: #000;
+    border-radius: 9999px;
+    border: 0;
+    color: white;
+    cursor: pointer;
+    display: flex;
+    font-weight: 800;
+    padding: 8px 24px;
+    place-items: center;
+    transition: opacity 0.3s ease;
+    user-select: none;
+}
+
+.btn[disabled] {
+    pointer-events: none;
+    opacity: 0.2;
+}
+
+.btn:hover {
+    opacity: 0.7;
+}
+
+.btn > svg {
+    margin-right: 8px;
+}

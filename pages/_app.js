@@ -1,7 +1,15 @@
-import '../styles/globals.css'
+import styles from "styles/pages/HomePage.module.css";
 
-function MyApp({ Component, pageProps }) {
-  return <Component {...pageProps} />
+import "../styles/globals.css";
+
+export default function MyApp({ Component, pageProps }) {
+    return (
+        <div className="container">
+            <main className="main">
+                <section className={styles.section}>
+                    <Component {...pageProps} />
+                </section>
+            </main>
+        </div>
+    );
 }
-
-export default MyApp
