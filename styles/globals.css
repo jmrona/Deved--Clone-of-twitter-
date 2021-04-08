@@ -94,6 +94,17 @@ a {
     font-weight: 600;
 }
 
+.header svg {
+    width: 20px;
+    height: 20px;
+    margin: 0px 0.6rem;
+    cursor: pointer;
+}
+
+.hidden {
+    display: none;
+}
+
 :root {
     --primary: #09f;
     --secundary: #1c5480;

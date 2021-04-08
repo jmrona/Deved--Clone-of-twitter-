@@ -1,8 +1,17 @@
 import { Devit } from "components/Devit";
+import { ArrowLeft } from "components/Icons/ArrowLeft";
+import { useRouter } from "next/router";
 
 export default function DevitPage(props) {
+    const router = useRouter();
+    const handleBackHome = () => {
+        router.push("/");
+    };
     return (
         <>
+            <header className="header">
+                <ArrowLeft onClick={handleBackHome} />
+            </header>
             <Devit {...props} />
         </>
     );

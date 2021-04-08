@@ -1,7 +1,7 @@
 import { Button } from "components/Button";
 import useUser from "hooks/useUser";
 import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import styles from "styles/components/Compose/Devit.module.css";
 
 import { addDevit, uploadImage } from "firebase/client";
@@ -11,6 +11,9 @@ import Link from "next/link";
 import { Home } from "components/Icons/Home";
 import { Search } from "components/Icons/Search";
 import { Create } from "components/Icons/Create";
+import { GalleryIcon } from "components/Icons/Gallery";
+import { Emoji } from "components/Icons/Emoji";
+import Picker from "emoji-picker-react";
 
 const COMPOSE_STATES = {
     USER_NOT_KNOWN: 0,
@@ -34,9 +37,12 @@ export default function ComposeDevit() {
     const [drag, setDrag] = useState(DRAG_IMAGE_STATES.NONE);
     const [task, setTask] = useState(null);
     const [imgURL, setImgURL] = useState(null);
+    const [chosenEmoji, setChosenEmoji] = useState(null);
+    const [isVisible, setIsVisible] = useState(false);
 
     const user = useUser();
     const router = useRouter();
+    const inputFileRef = useRef();
 
     useEffect(() => {
         if (task) {
@@ -94,6 +100,23 @@ export default function ComposeDevit() {
         setTask(task);
     };
 
+    const handleUploadPicture = (e) => {
+        const file = inputFileRef.current.files[0];
+        console.log(file);
+        const task = uploadImage(file);
+        setTask(task);
+    };
+
+    const handleInputFile = () => {
+        inputFileRef.current.click();
+    };
+
+    const handleEmojiClick = (event, emojiObject) => {
+        setChosenEmoji(emojiObject);
+        setIsVisible(false);
+        setMessage(message + emojiObject.emoji);
+    };
+
     const isButtonDisabled =
         !message.length || status === COMPOSE_STATES.LOADING;
 
@@ -138,14 +161,44 @@ export default function ComposeDevit() {
                                 <img src={imgURL} className={styles.img} />
                             </section>
                         )}
-                        <Button disabled={isButtonDisabled}>Devitear</Button>
+                        <div className={styles.footer}>
+                            <div className="options">
+                                <GalleryIcon
+                                    width="25px"
+                                    height="25px"
+                                    onClick={handleInputFile}
+                                />
+                                <input
+                                    type="file"
+                                    ref={inputFileRef}
+                                    className="hidden"
+                                    accept=".png, .jpg, .jpeg"
+                                    onChange={() => handleUploadPicture()}
+                                />
+                                <Emoji
+                                    width="25px"
+                                    height="25px"
+                                    onClick={() => setIsVisible(!isVisible)}
+                                />
+                                {isVisible && (
+                                    <span className={styles.emojiPicker}>
+                                        <Picker
+                                            onEmojiClick={handleEmojiClick}
+                                        />
+                                    </span>
+                                )}
+                            </div>
+                            <Button disabled={isButtonDisabled}>
+                                Devitear
+                            </Button>
+                        </div>
                     </form>
                 </section>
             </main>
             <nav className="nav">
                 <Link href="/home">
                     <a>
-                        <Home width="35px" height="35px" />
+                        <Home width="25px" height="25px" />
                     </a>
                 </Link>
                 <Link href="#">

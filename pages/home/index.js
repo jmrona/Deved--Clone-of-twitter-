@@ -29,7 +29,7 @@ export default function HomePage() {
                 <title>Deved / Home</title>
             </Head>
             <header className="header">
-                <h2>Inicio</h2>
+                <h2>Home</h2>
             </header>
             <main>
                 <section className={styles.section}>
@@ -62,7 +62,7 @@ export default function HomePage() {
             <nav className="nav">
                 <Link href="/home">
                     <a>
-                        <Home width="35px" height="35px" />
+                        <Home width="25px" height="25px" />
                     </a>
                 </Link>
                 <Link href="#">

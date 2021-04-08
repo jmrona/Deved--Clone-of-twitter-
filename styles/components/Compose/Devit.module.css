@@ -11,6 +11,7 @@
 
 .form {
     padding: 15px;
+    width: 100%;
 }
 
 .main {
@@ -52,7 +53,37 @@
     padding-left: 10px;
 }
 
+.emojiPicker {
+    position: absolute;
+    left: 90px;
+    top: -85px;
+    z-index: 1;
+}
+
+.hide {
+    display: none;
+}
+
 .form__container {
     display: flex;
     align-items: flex-start;
+}
+
+.footer {
+    display: flex;
+    flex-basis: 100%;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid #d4d4d4;
+    padding-top: 10px;
+    position: relative;
+}
+
+.footer svg {
+    margin: 0px 10px;
+    cursor: pointer;
+}
+
+.footer svg:hover {
+    background: radial-gradient(#0099ff22 80%, transparent 50%);
 }
