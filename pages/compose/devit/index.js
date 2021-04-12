@@ -1,7 +1,7 @@
 import { Button } from "components/Button";
 import useUser from "hooks/useUser";
 import { useRouter } from "next/router";
-import { useEffect, useRef, useState } from "react";
+import { Fragment, useEffect, useRef, useState } from "react";
 import styles from "styles/components/Compose/Devit.module.css";
 
 import { addDevit, uploadImage } from "firebase/client";
@@ -13,7 +13,7 @@ import { Search } from "components/Icons/Search";
 import { Create } from "components/Icons/Create";
 import { GalleryIcon } from "components/Icons/Gallery";
 import { Emoji } from "components/Icons/Emoji";
-import Picker from "emoji-picker-react";
+// import Picker from "emoji-picker-react";
 
 const COMPOSE_STATES = {
     USER_NOT_KNOWN: 0,
@@ -38,11 +38,13 @@ export default function ComposeDevit() {
     const [task, setTask] = useState(null);
     const [imgURL, setImgURL] = useState(null);
     const [chosenEmoji, setChosenEmoji] = useState(null);
+    const [mounted, setMounted] = useState(null);
     const [isVisible, setIsVisible] = useState(false);
 
     const user = useUser();
     const router = useRouter();
     const inputFileRef = useRef();
+    const Picker = () => import("emoji-picker-react");
 
     useEffect(() => {
         if (task) {
@@ -55,6 +57,8 @@ export default function ComposeDevit() {
             task.on("state_changed", onProgress, onError, onComplete);
         }
     }, [task]);
+
+    useEffect(() => setMounted(true), []);
 
     const handleChange = (e) => {
         const { value } = e.target;
@@ -86,7 +90,7 @@ export default function ComposeDevit() {
         setDrag(DRAG_IMAGE_STATES.DRAG_OVER);
     };
 
-    const handleDragLeace = (e) => {
+    const handleDragLeave = (e) => {
         e.preventDefault();
         setDrag(DRAG_IMAGE_STATES.NONE);
     };
@@ -102,7 +106,6 @@ export default function ComposeDevit() {
 
     const handleUploadPicture = (e) => {
         const file = inputFileRef.current.files[0];
-        console.log(file);
         const task = uploadImage(file);
         setTask(task);
     };
@@ -146,7 +149,7 @@ export default function ComposeDevit() {
                             placeholder="What is happening?"
                             onChange={handleChange}
                             onDragEnter={handleDragEnter}
-                            onDragLeave={handleDragLeace}
+                            onDragLeave={handleDragLeave}
                             onDrop={handleDrop}
                             value={message}
                         ></textarea>
@@ -180,12 +183,20 @@ export default function ComposeDevit() {
                                     height="25px"
                                     onClick={() => setIsVisible(!isVisible)}
                                 />
-                                {isVisible && (
-                                    <span className={styles.emojiPicker}>
-                                        <Picker
-                                            onEmojiClick={handleEmojiClick}
-                                        />
-                                    </span>
+                                {mounted && (
+                                    <Fragment>
+                                        {isVisible && (
+                                            <span
+                                                className={styles.emojiPicker}
+                                            >
+                                                <Picker
+                                                    onEmojiClick={
+                                                        handleEmojiClick
+                                                    }
+                                                />
+                                            </span>
+                                        )}
+                                    </Fragment>
                                 )}
                             </div>
                             <Button disabled={isButtonDisabled}>

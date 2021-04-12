@@ -1,4 +1,4 @@
-.container {
+/* .container {
     display: grid;
     place-items: center;
     height: 100vh;
@@ -18,17 +18,19 @@
     display: grid;
     place-items: center;
     place-content: center;
-}
+} */
 
 .title {
-    font-size: 1.5rem;
+    font-size: 3rem;
+    text-align: center;
     font-weight: 800;
+    margin: 0;
 }
 
 .subtitle {
     text-align: center;
+    margin: 0 0 3rem 0;
     font-size: 1rem;
-    color: var(--secundary);
 }
 
 .btn__group button {
@@ -36,9 +38,27 @@
     width: 100%;
 }
 
+.card {
+    display: flex;
+    flex-flow: column;
+    justify-content: center;
+    align-items: center;
+    height: 90vh;
+    padding: 2rem;
+}
+
+.logo {
+    width: 300px;
+    filter: drop-shadow(0 0.2rem 0.25rem rgba(0, 0, 0, 0.452));
+}
+
+.blue {
+    color: var(--primary);
+}
+
 @media screen and (min-width: 650px) {
-    .main {
+    /* .main {
         height: 90vh;
         width: 650px;
-    }
+    } */
 }

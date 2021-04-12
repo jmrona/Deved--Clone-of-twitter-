@@ -1,4 +1,5 @@
 .article {
+    position: relative;
     border-bottom: 2px solid #eee;
     display: flex;
     padding: 10px 15px;
@@ -7,6 +8,10 @@
 .article:hover {
     background: #f3f3f3;
     cursor: pointer;
+}
+
+.section {
+    width: 100%;
 }
 
 .div {
@@ -27,4 +32,84 @@
     height: auto;
     margin-top: 10px;
     width: 100%;
+}
+
+.counter {
+    font-size: 0.9rem;
+    padding-left: 2px;
+    position: relative;
+    /* animation: spinit 0.2s; */
+}
+
+.footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 10px;
+    margin-bottom: -5px;
+    width: 100%;
+}
+
+.footer div {
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+}
+
+.footer div svg {
+    padding: 3px;
+    transition: 0.3s ease;
+}
+
+.footer div:nth-child(1) svg:hover {
+    background: radial-gradient(#ff001522 70%, transparent 10%);
+    fill: #db3131;
+}
+
+.footer div:nth-child(2) svg:hover {
+    background: radial-gradient(#0099ff22 70%, transparent 10%);
+    fill: #2771df;
+}
+.footer div:nth-child(3) svg:hover {
+    background: radial-gradient(#00ff1522 70%, transparent 10%);
+    fill: #188a18;
+}
+.footer div:nth-child(4) svg:hover {
+    background: radial-gradient(#ff910022 70%, transparent 10%);
+    fill: #8f5a15;
+}
+
+@-webkit-keyframes spinit {
+    0% {
+        top: 0em;
+    }
+    50% {
+        top: -5em;
+    }
+    100% {
+        top: -9em;
+    }
+}
+@-moz-keyframes spinit {
+    0% {
+        top: 0em;
+    }
+    50% {
+        top: -5em;
+    }
+    100% {
+        top: -9em;
+    }
+}
+@keyframes spinit {
+    0% {
+        top: 0em;
+    }
+    50% {
+        top: -5em;
+    }
+    100% {
+        top: -9em;
+    }
 }

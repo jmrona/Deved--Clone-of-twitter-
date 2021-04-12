@@ -67,6 +67,7 @@ export const addDevit = ({ avatar, content, userId, userName, img }) => {
         createdAt: firebase.firestore.Timestamp.fromDate(new Date()),
         likesCount: 0,
         sharedCount: 0,
+        redevitCount: 0,
     });
 };
 const mapDevitFromFirebaseToDevitObj = (doc) => {
@@ -99,4 +100,13 @@ export const uploadImage = (file) => {
     const task = ref.put(file);
 
     return task;
+};
+
+export const likeDevit = (id) => {
+    return db
+        .collection("devits")
+        .doc(id)
+        .update({
+            likesCount: firebase.firestore.FieldValue.increment(1),
+        });
 };

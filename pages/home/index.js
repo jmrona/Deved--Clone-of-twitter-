@@ -11,6 +11,7 @@ import { Create } from "components/Icons/Create";
 
 export default function HomePage() {
     const [timeline, setTimeline] = useState([]);
+
     const user = useUser();
 
     useEffect(() => {
@@ -42,6 +43,8 @@ export default function HomePage() {
                             userName,
                             userId,
                             createdAt,
+                            likesCount,
+                            sharedCount,
                         }) => {
                             return (
                                 <Devit
@@ -53,12 +56,15 @@ export default function HomePage() {
                                     content={content}
                                     userName={userName}
                                     userId={userId}
+                                    likesCount={likesCount}
+                                    sharedCount={sharedCount}
                                 />
                             );
                         }
                     )}
                 </section>
             </main>
+
             <nav className="nav">
                 <Link href="/home">
                     <a>

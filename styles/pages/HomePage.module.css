@@ -27,6 +27,7 @@
 }
 
 .section {
+    position: relative;
     flex: 1;
 }
 
