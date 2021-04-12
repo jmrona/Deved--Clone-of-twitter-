@@ -85,6 +85,7 @@ a {
     height: 49px;
     position: sticky;
     top: -1px;
+    z-index: 11;
     width: 100%;
 }
 
